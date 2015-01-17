@@ -1,8 +1,8 @@
 var config = {
 	"meetup": {
-	  "apikey": "192f34a623f3e4b5e7966382c4b4a1d",
-	  "groupid": 18345715,
-	  "groupurl": "GitUp-integrations-group"
+	  "apikey": "YOUR_API_KEY",
+	  "groupid": "MEETUP_GROUP_ID",
+	  "groupurl": "MEETUP_GROUP_NAME"
 	}
 };
 
