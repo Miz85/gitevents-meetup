@@ -1,1 +1,1 @@
-# GitUp - Meetup module
+# GitEvents - Meetup module
