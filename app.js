@@ -1,8 +1,8 @@
 var config = {
 	"meetup": {
 	  "apikey": "YOUR_API_KEY",
-	  "groupid": "MEETUP_GROUP_ID",
-	  "groupurl": "MEETUP_GROUP_NAME"
+	  "groupid": "GROUP_ID",
+	  "groupurl": "GROUP_URL"
 	}
 };
 
@@ -25,7 +25,22 @@ var talks = {
         'slides': 'http://www.slideshare.net/bpedro/api-code-generation',
         'video': 'https://vimeo.com/87488883',
         'description': 'I\'ll show you how to generate a nodejs API consumer by using the API Blueprint (http://apiblueprint.org/) to generate code from a Postman (http://www.getpostman.com/) collection.'
-      }]
+      },
+      {
+        'title': 'Build stuff using node.js',
+        'speaker': {
+          'twitter': 'nsaouli',
+          'name': 'Nazim Saouli',
+          'portrait': ''
+        },
+        'level': 'Beginner',
+        'language': 'en',
+        'git': '',
+        'slides': 'http://www.slideshare.net/bpedro/api-code-generation',
+        'video': 'https://vimeo.com/87488883',
+        'description': 'I\'ll discuss all things node.js and how to use it to build cool things.'
+      }
+      ]
     };
 
 var meetup = require('./meetup')(config);
