@@ -8,7 +8,7 @@ var STATUS_OK = "ok";
 var meetup = function(config) {
 
   // Check if the configuration is there
-  if(!config || !config.meetup.apikey || !config.meetup.groupurl || !config.meetup.groupid) {
+  if(!config || !config.meetup || !config.meetup.apikey || !config.meetup.groupurl || !config.meetup.groupid) {
       // We should do something
       throw new Error("Missing configuration");
   }
@@ -162,36 +162,35 @@ var meetup = function(config) {
 
       if(!talks.event || !talks.event.talks) {
         // Missing Event or missing list of talks
-        cb("Missing Event or missing list of talks", null);
+        cb(new Error("Missing Event or missing list of talks"), null);
+      } else {
+
+        async.waterfall([
+          // Check if the venue exists
+          function(callback) {
+             _getVenueId(talks.event.venue, function(err, venueId){
+                if(err) {
+                  callback(err, null);
+                } else {
+                  callback(null, venueId);
+                }
+             });
+          },
+
+          // Check if the event related to the talk already exists in meetup
+          function(venueId,callback) {
+            _createOrUpdateEvent(venueId, talks, function(err, status){
+                if(err) {
+                  callback(err, null);
+                } else {
+                  callback(null, status);
+                }
+            });
+          }
+        ], function(err, result){
+            cb(err, result);
+        });
       }
-
-      async.waterfall([
-        // Check if the venue exists
-        function(callback) {
-           _getVenueId(talks.event.venue, function(err, venueId){
-              if(err) {
-                callback(err, null);
-              } else {
-                callback(null, venueId);
-              }
-           });
-        },
-
-        // Check if the event related to the talk already exists in meetup
-        function(venueId,callback) {
-          _createOrUpdateEvent(venueId, talks, function(err, status){
-              if(err) {
-                callback(err, null);
-              } else {
-                callback(null, status);
-              }
-          });
-        }
-      ], function(err, result){
-          cb(err, result);
-      });
-
-     
     }
   }
 };
